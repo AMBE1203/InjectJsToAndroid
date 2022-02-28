@@ -1,29 +1,32 @@
 package com.example.demowebviewandroid
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class MyAdapter(private val myContext: Context, fm: FragmentManager, internal var totalTabs: Int) :
+class MyAdapter(fm: FragmentManager, private val titles: List<String>) :
     FragmentPagerAdapter(fm) {
 
     // this is for fragment tabs
     override fun getItem(position: Int): Fragment {
-        when (position) {
+        return when (position) {
             0 -> {
-                return HomeFragment()
+                HomeFragment()
             }
             1 -> {
-                return SportFragment()
+                SportFragment()
             }
 
-            else -> return MovieFragment()
+            else -> MovieFragment()
 
         }
     }
 
+    override fun getPageTitle(position: Int): CharSequence? {
+        return titles[position]
+    }
+
     override fun getCount(): Int {
-        return totalTabs
+        return titles.size
     }
 }
