@@ -24,8 +24,8 @@ class HomeFragment : Fragment() {
 
         txtHome = v.findViewById(R.id.txt_home)
         txtHome?.setOnClickListener {
-            val intent = Intent(activity, HomeActivity::class.java)
-            (activity as MainActivity?)!!.startActivity(intent)
+            (activity as MainActivity).reLoad()
+
         }
         return v
     }

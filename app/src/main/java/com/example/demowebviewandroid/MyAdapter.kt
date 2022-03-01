@@ -22,6 +22,10 @@ class MyAdapter(fm: FragmentManager, private val titles: List<String>) :
         }
     }
 
+    override fun getItemPosition(`object`: Any): Int {
+        return super.getItemPosition(`object`)
+    }
+
     override fun getPageTitle(position: Int): CharSequence? {
         return titles[position]
     }

@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = MyAdapter(supportFragmentManager , titles)
         viewPager!!.adapter = adapter
-//        viewPager?.offscreenPageLimit = 2
+        viewPager?.offscreenPageLimit = 2
 
         viewPager!!.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrolled(
@@ -45,6 +45,11 @@ class MainActivity : AppCompatActivity() {
         tabLayout?.shouldExpand = true
 
         tabLayout?.setViewPager(viewPager!!)
+
+    }
+
+    fun reLoad(){
+        viewPager?.adapter?.notifyDataSetChanged()
 
     }
 
