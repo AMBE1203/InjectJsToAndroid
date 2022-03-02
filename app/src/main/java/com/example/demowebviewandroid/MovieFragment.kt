@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.webkit.*
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
@@ -17,6 +18,7 @@ class MovieFragment : Fragment() {
 
     public var mSwipeRefresh: SwipeRefreshLayout? = null
     private var mWebview: WebView? = null
+    private var mButton: Button? = null
 
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -29,6 +31,7 @@ class MovieFragment : Fragment() {
 
         mSwipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.mSwipeRefreshX)
         mWebview = view.findViewById<WebView>(R.id.mWebview)
+        mButton = view.findViewById(R.id.btnTest)
 
 
 
@@ -42,10 +45,21 @@ class MovieFragment : Fragment() {
         webSettings?.useWideViewPort = true
         webSettings?.layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL
         webSettings?.javaScriptEnabled = true
+
+        mButton?.setOnClickListener {
+            Toast.makeText(context, "Click me", Toast.LENGTH_LONG).show()
+        }
         val xx = ScrollableWebViewJSInterfaceObject()
         xx.setT(object : Test {
             override fun enableSwipe(boolean: Boolean) {
-                mSwipeRefresh?.isEnabled = boolean
+                mSwipeRefresh?.isRefreshing = boolean
+//                mSwipeRefresh?.isEnabled = boolean
+
+            }
+
+            override fun disableButton(boolean: Boolean) {
+//                mButton?.isEnabled = boolean
+                mSwipeRefresh?.isRefreshing = boolean
 
             }
         })
@@ -125,6 +139,7 @@ class MovieFragment : Fragment() {
         
       })()"""
         view.evaluateJavascript(javascript, null)
+        view.evaluateJavascript(test, null)
     }
 
 
@@ -140,7 +155,7 @@ class MovieFragment : Fragment() {
         fun vaoDay() {
 
 
-            t?.enableSwipe(false)
+            t?.disableButton(false)
         }
 
 
@@ -169,4 +184,9 @@ class MovieFragment : Fragment() {
         }
     }
 
+}
+
+interface Test {
+    fun enableSwipe(boolean: Boolean)
+    fun disableButton(boolean: Boolean)
 }
